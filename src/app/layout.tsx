@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import WalletConnect from "@/components/WalletConnect";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
+          <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <span className="text-sm font-semibold tracking-tight">
+              Stellar Radar
+            </span>
+            <WalletConnect />
+          </div>
+        </header>
         {children}
       </body>
     </html>
