@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Dapp {
+  id           String    @id @default(cuid())
+  name         String
+  description  String
+  category     String
+  websiteUrl   String
+  tvl          Float?
+  userCount    Int?
+  txCount      Int?
+  lastActivity DateTime?
+  isMock       Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+}
