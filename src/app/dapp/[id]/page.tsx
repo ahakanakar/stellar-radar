@@ -9,6 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { MOCK_DAPPS } from "@/lib/dapps";
+import WalletGate from "@/components/ReviewForm/WalletGate";
+import ReviewList from "@/components/ReviewList";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -104,6 +106,14 @@ export default async function DappDetailPage({ params }: PageProps) {
             </dl>
           </CardContent>
         </Card>
+
+        <div className="mt-8">
+          <WalletGate dappId={dapp.id} />
+        </div>
+
+        <div className="mt-6">
+          <ReviewList dappId={dapp.id} />
+        </div>
       </div>
     </main>
   );
