@@ -10,7 +10,7 @@ interface DappCardProps {
 export default function DappCard({ dapp }: DappCardProps) {
   return (
     <Link href={`/dapp/${dapp.id}`} className="group outline-none">
-      <Card className="flex h-full flex-col gap-3 transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring">
+      <Card className="flex h-full flex-col gap-3 transition-all duration-200 group-hover:shadow-lg group-hover:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-ring">
         <CardHeader className="pb-2">
           <div className="flex items-start justify-between gap-2">
             <CardTitle className="text-lg leading-tight">{dapp.name}</CardTitle>
@@ -28,7 +28,7 @@ export default function DappCard({ dapp }: DappCardProps) {
               <span className="text-xs text-muted-foreground uppercase tracking-wide">
                 TVL
               </span>
-              <span className="text-sm font-semibold tabular-nums">
+              <span className="text-sm font-semibold font-mono tabular-nums">
                 {dapp.tvl}
               </span>
             </div>
@@ -36,7 +36,7 @@ export default function DappCard({ dapp }: DappCardProps) {
               <span className="text-xs text-muted-foreground uppercase tracking-wide">
                 Users
               </span>
-              <span className="text-sm font-semibold tabular-nums">
+              <span className="text-sm font-semibold font-mono tabular-nums">
                 {dapp.users.toLocaleString()}
               </span>
             </div>
