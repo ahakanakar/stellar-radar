@@ -148,7 +148,7 @@ export default function AnalyticsPage() {
                     />
                     <YAxis dataKey="name" type="category" width={100} tick={{ fontSize: 12 }} className="fill-muted-foreground" />
                     <Tooltip
-                      formatter={(value: number) => [formatCompact(value), "TVL"]}
+                      formatter={(value: number | string | undefined) => [formatCompact(Number(value)), "TVL"]}
                       contentStyle={{
                         backgroundColor: "hsl(var(--popover))",
                         borderColor: "hsl(var(--border))",
