@@ -49,14 +49,9 @@ const CHART_COLORS = [
   "var(--chart-5)",
 ];
 
-// ── Computed data ─────────────────────────────────────────────────────────────
-
 const totalDapps = MOCK_DAPPS.length;
-
 const totalTvl = MOCK_DAPPS.reduce((sum, d) => sum + parseTvl(d.tvl), 0);
-
 const totalUsers = MOCK_DAPPS.reduce((sum, d) => sum + d.users, 0);
-
 const totalTx = MOCK_DAPPS.reduce((sum, d) => sum + (d.txCount ?? 0), 0);
 
 const categoryData = Object.entries(
@@ -79,7 +74,12 @@ const txRanking = [...MOCK_DAPPS]
   .slice(0, 5)
   .map((d) => ({ name: d.name, txCount: d.txCount ?? 0 }));
 
-// ── Component ─────────────────────────────────────────────────────────────────
+const tooltipStyle = {
+  backgroundColor: "hsl(var(--popover))",
+  borderColor: "hsl(var(--border))",
+  borderRadius: 8,
+  fontSize: 13,
+};
 
 export default function AnalyticsPage() {
   return (
@@ -89,7 +89,6 @@ export default function AnalyticsPage() {
           Analytics
         </h1>
 
-        {/* Ecosystem Summary */}
         <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
           <SummaryCard title="Toplam DApp" value={totalDapps.toString()} />
           <SummaryCard title="Toplam TVL" value={formatCompact(totalTvl)} />
@@ -97,9 +96,7 @@ export default function AnalyticsPage() {
           <SummaryCard title="Toplam İşlem" value={formatNumber(totalTx)} />
         </div>
 
-        {/* Charts */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {/* Category Distribution */}
           <Card className="lg:col-span-2">
             <CardHeader>
               <CardTitle className="text-base">Kategori Dağılımı</CardTitle>
@@ -111,14 +108,7 @@ export default function AnalyticsPage() {
                     <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                     <XAxis dataKey="category" tick={{ fontSize: 12 }} className="fill-muted-foreground" />
                     <YAxis allowDecimals={false} tick={{ fontSize: 12 }} className="fill-muted-foreground" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "hsl(var(--popover))",
-                        borderColor: "hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 13,
-                      }}
-                    />
+                    <Tooltip contentStyle={tooltipStyle} />
                     <Bar dataKey="count" name="DApp Sayısı" radius={[4, 4, 0, 0]}>
                       {categoryData.map((_, i) => (
                         <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
@@ -130,7 +120,6 @@ export default function AnalyticsPage() {
             </CardContent>
           </Card>
 
-          {/* TVL Ranking */}
           <Card>
             <CardHeader>
               <CardTitle className="text-base">TVL Sıralaması (Top 5)</CardTitle>
@@ -147,15 +136,7 @@ export default function AnalyticsPage() {
                       tickFormatter={(v: number) => formatCompact(v)}
                     />
                     <YAxis dataKey="name" type="category" width={100} tick={{ fontSize: 12 }} className="fill-muted-foreground" />
-                    <Tooltip
-                      formatter={(value: number | string | undefined) => [formatCompact(Number(value)), "TVL"]}
-                      contentStyle={{
-                        backgroundColor: "hsl(var(--popover))",
-                        borderColor: "hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 13,
-                      }}
-                    />
+                    <Tooltip contentStyle={tooltipStyle} />
                     <Bar dataKey="tvl" name="TVL" radius={[0, 4, 4, 0]}>
                       {tvlRanking.map((_, i) => (
                         <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
@@ -167,7 +148,6 @@ export default function AnalyticsPage() {
             </CardContent>
           </Card>
 
-          {/* Most Active DApps */}
           <Card>
             <CardHeader>
               <CardTitle className="text-base">En Aktif DApp&apos;ler (Top 5)</CardTitle>
@@ -184,15 +164,7 @@ export default function AnalyticsPage() {
                       tickFormatter={(v: number) => formatNumber(v)}
                     />
                     <YAxis dataKey="name" type="category" width={100} tick={{ fontSize: 12 }} className="fill-muted-foreground" />
-                    <Tooltip
-                      formatter={(value: number) => [formatNumber(value), "İşlem Sayısı"]}
-                      contentStyle={{
-                        backgroundColor: "hsl(var(--popover))",
-                        borderColor: "hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 13,
-                      }}
-                    />
+                    <Tooltip contentStyle={tooltipStyle} />
                     <Bar dataKey="txCount" name="İşlem" radius={[0, 4, 4, 0]}>
                       {txRanking.map((_, i) => (
                         <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
