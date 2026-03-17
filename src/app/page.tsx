@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { usePersonalization, sortDappsByScores } from "@/hooks/usePersonalization";
 
-type Category = "All" | "DEX" | "Lending" | "Infrastructure";
-
-const CATEGORIES: Category[] = ["All", "DEX", "Lending", "Infrastructure"];
+const CATEGORIES = [
+  "All",
+  ...Array.from(new Set(MOCK_DAPPS.map((d) => d.category))),
+] as const;
 
 export default function HomePage() {
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState<Category>("All");
+  const [activeCategory, setActiveCategory] = useState("All");
   const { scores, isPersonalized, loading: personalizationLoading } = usePersonalization();
 
   const filteredDapps = useMemo(() => {

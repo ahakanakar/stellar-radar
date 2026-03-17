@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 import WalletConnect from "@/components/WalletConnect";
 
@@ -30,9 +31,14 @@ export default function RootLayout({
       >
         <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
           <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-            <span className="text-sm font-semibold tracking-tight">
-              Stellar Radar
-            </span>
+            <nav className="flex items-center gap-6">
+              <Link href="/" className="text-sm font-semibold tracking-tight hover:opacity-80 transition-opacity">
+                Stellar Radar
+              </Link>
+              <Link href="/analytics" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Analytics
+              </Link>
+            </nav>
             <WalletConnect />
           </div>
         </header>
